@@ -28,6 +28,8 @@ dependencies:
   auto_size_text: 3.0.0
   cached_network_image: 3.3.1
   collection: 1.18.0
+  data_table_2: 2.5.10
+  dropdown_button2: 2.3.9
   flutter_animate: 4.1.1+1
   flutter_cache_manager: 3.3.1
   font_awesome_flutter: 10.6.0
@@ -78,7 +80,7 @@ flutter_launcher_icons:
   ios: true
   web:
     generate: true
-  image_path: 'assets/images/adaptive_foreground_icon.png'
+  image_path: 'assets/images/app_launcher_icon.png'
   adaptive_icon_background: '#00000000'
   adaptive_icon_foreground: 'assets/images/adaptive_foreground_icon.png'
 

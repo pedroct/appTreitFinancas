@@ -1,3 +1,4 @@
+import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,18 @@ class _InicialWidgetState extends State<InicialWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            print('FloatingActionButton pressed ...');
+          },
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          elevation: 8.0,
+          child: Icon(
+            Icons.add,
+            color: FlutterFlowTheme.of(context).info,
+            size: 24.0,
+          ),
+        ),
         body: Container(
           width: MediaQuery.sizeOf(context).width * 1.0,
           height: MediaQuery.sizeOf(context).height * 1.0,
@@ -215,7 +228,6 @@ class _InicialWidgetState extends State<InicialWidget> {
                     width: 100.0,
                     height: MediaQuery.sizeOf(context).height * 1.0,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryText,
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     child: Column(
@@ -226,74 +238,64 @@ class _InicialWidgetState extends State<InicialWidget> {
                               8.0, 8.0, 8.0, 8.0),
                           child: Container(
                             width: MediaQuery.sizeOf(context).width * 1.0,
-                            height: 80.0,
+                            height: 60.0,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
                               borderRadius: BorderRadius.circular(12.0),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 16.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      width: 100.0,
-                                      height: 100.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Seja bem vindo!',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                          Text(
-                                            'Pedro Teixeira',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  fontSize: 18.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: const BoxDecoration(),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Seja bem vindo!',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                        Text(
+                                          'Pedro Teixeira',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 18.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  if (responsiveVisibility(
-                                    context: context,
-                                    desktop: false,
-                                  ))
-                                    Icon(
-                                      Icons.menu_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 30.0,
-                                    ),
-                                ],
-                              ),
+                                ),
+                                if (responsiveVisibility(
+                                  context: context,
+                                  desktop: false,
+                                ))
+                                  Icon(
+                                    Icons.menu_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 30.0,
+                                  ),
+                              ],
                             ),
                           ),
                         ),
@@ -346,25 +348,29 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                       .secondaryText,
                                                   size: 24.0,
                                                 ),
-                                                Text(
-                                                  'Saldo Total',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          8.0, 0.0, 0.0, 0.0),
+                                                  child: Text(
+                                                    'Saldo atual',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
                                             Text(
-                                              'R\$ 1500',
+                                              'R\$ 1350',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyMedium
@@ -411,26 +417,30 @@ class _InicialWidgetState extends State<InicialWidget> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Icon(
-                                                  Icons.attach_money,
+                                                  Icons.arrow_circle_up,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .secondaryText,
+                                                      .success,
                                                   size: 24.0,
                                                 ),
-                                                Text(
-                                                  'Total Entradas',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          8.0, 0.0, 0.0, 0.0),
+                                                  child: Text(
+                                                    'Receitas',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -443,7 +453,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                     fontFamily: 'Readex Pro',
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .secondaryText,
+                                                        .success,
                                                     fontSize: 30.0,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
@@ -482,32 +492,35 @@ class _InicialWidgetState extends State<InicialWidget> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Icon(
-                                                  Icons
-                                                      .money_off_csred_outlined,
+                                                  Icons.arrow_circle_down,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .secondaryText,
+                                                      .error,
                                                   size: 24.0,
                                                 ),
-                                                Text(
-                                                  'Total Saídas',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          8.0, 0.0, 0.0, 0.0),
+                                                  child: Text(
+                                                    'Despesas',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
                                             Text(
-                                              'R\$ 1500',
+                                              'R\$ 150',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyMedium
@@ -515,7 +528,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                     fontFamily: 'Readex Pro',
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .secondaryText,
+                                                        .error,
                                                     fontSize: 30.0,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
@@ -542,6 +555,173 @@ class _InicialWidgetState extends State<InicialWidget> {
                                   .secondaryBackground,
                               borderRadius: BorderRadius.circular(12.0),
                             ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 8.0, 0.0, 8.0),
+                                  child: Text(
+                                    'Minhas Transações',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Readex Pro',
+                                          fontSize: 18.0,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 0.0, 8.0, 0.0),
+                                    child: FlutterFlowDataTable<dynamic>(
+                                      controller:
+                                          _model.paginatedDataTableController,
+                                      data: paginatedDataTableRecordList,
+                                      columnsBuilder: (onSortChanged) => [
+                                        DataColumn2(
+                                          label: DefaultTextStyle.merge(
+                                            softWrap: true,
+                                            child: Text(
+                                              'Descrição',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                          ),
+                                        ),
+                                        DataColumn2(
+                                          label: DefaultTextStyle.merge(
+                                            softWrap: true,
+                                            child: Text(
+                                              'Categoria',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                          ),
+                                        ),
+                                        DataColumn2(
+                                          label: DefaultTextStyle.merge(
+                                            softWrap: true,
+                                            child: Text(
+                                              'Tipo',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                          ),
+                                        ),
+                                        DataColumn2(
+                                          label: DefaultTextStyle.merge(
+                                            softWrap: true,
+                                            child: Text(
+                                              'Valor',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                      dataRowBuilder: (Item,
+                                              paginatedDataTableIndex,
+                                              selected,
+                                              onSelectChanged) =>
+                                          DataRow(
+                                        color: MaterialStateProperty.all(
+                                          paginatedDataTableIndex % 2 == 0
+                                              ? FlutterFlowTheme.of(context)
+                                                  .secondaryBackground
+                                              : FlutterFlowTheme.of(context)
+                                                  .primaryBackground,
+                                        ),
+                                        cells: [
+                                          Text(
+                                            'Desc',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                          Text(
+                                            'Categoria',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                          Text(
+                                            'Receita',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                          Text(
+                                            'Edit Column 4',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ].map((c) => DataCell(c)).toList(),
+                                      ),
+                                      paginated: true,
+                                      selectable: false,
+                                      hidePaginator: false,
+                                      showFirstLastButtons: false,
+                                      minWidth: 500.0,
+                                      headingRowHeight: 56.0,
+                                      dataRowHeight: 48.0,
+                                      columnSpacing: 10.0,
+                                      headingRowColor:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      addHorizontalDivider: true,
+                                      addTopAndBottomDivider: false,
+                                      hideDefaultHorizontalDivider: true,
+                                      horizontalDividerColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      horizontalDividerThickness: 1.0,
+                                      addVerticalDivider: false,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Expanded(
@@ -552,8 +732,6 @@ class _InicialWidgetState extends State<InicialWidget> {
                               width: MediaQuery.sizeOf(context).width * 1.0,
                               height: MediaQuery.sizeOf(context).height * 1.0,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                             ),
