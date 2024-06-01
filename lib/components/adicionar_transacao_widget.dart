@@ -50,11 +50,15 @@ class _AdicionarTransacaoWidgetState extends State<AdicionarTransacaoWidget> {
     return Align(
       alignment: const AlignmentDirectional(0.0, 0.0),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
         child: Container(
           width: 400.0,
           height: 550.0,
-          decoration: const BoxDecoration(),
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            borderRadius: BorderRadius.circular(12.0),
+            shape: BoxShape.rectangle,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -124,7 +128,7 @@ class _AdicionarTransacaoWidgetState extends State<AdicionarTransacaoWidget> {
                           children: [
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 0.0),
+                                  0.0, 16.0, 0.0, 0.0),
                               child: Text(
                                 'Descrição',
                                 style: FlutterFlowTheme.of(context)
@@ -204,7 +208,7 @@ class _AdicionarTransacaoWidgetState extends State<AdicionarTransacaoWidget> {
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 0.0),
+                                  0.0, 16.0, 0.0, 0.0),
                               child: Text(
                                 'Valor R\$',
                                 style: FlutterFlowTheme.of(context)
@@ -284,7 +288,7 @@ class _AdicionarTransacaoWidgetState extends State<AdicionarTransacaoWidget> {
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 0.0),
+                                  0.0, 16.0, 0.0, 0.0),
                               child: Text(
                                 'Categoria',
                                 style: FlutterFlowTheme.of(context)
@@ -337,7 +341,7 @@ class _AdicionarTransacaoWidgetState extends State<AdicionarTransacaoWidget> {
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 0.0),
+                                  0.0, 16.0, 0.0, 0.0),
                               child: Text(
                                 'Tipo',
                                 style: FlutterFlowTheme.of(context)
@@ -404,7 +408,7 @@ class _AdicionarTransacaoWidgetState extends State<AdicionarTransacaoWidget> {
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                    padding: const EdgeInsets.all(12.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [

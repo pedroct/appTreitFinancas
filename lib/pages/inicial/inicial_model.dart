@@ -8,8 +8,7 @@ class InicialModel extends FlutterFlowModel<InicialWidget> {
 
   final unfocusNode = FocusNode();
   // State field(s) for PaginatedDataTable widget.
-  final paginatedDataTableController =
-      FlutterFlowDataTableController<dynamic>();
+  final paginatedDataTableController = FlutterFlowDataTableController<int>();
 
   @override
   void initState(BuildContext context) {}

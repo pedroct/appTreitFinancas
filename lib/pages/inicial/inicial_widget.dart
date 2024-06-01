@@ -1,6 +1,11 @@
+import '/components/adicionar_categoria_widget.dart';
+import '/components/adicionar_transacao_widget.dart';
+import '/components/adicionar_usuario_widget.dart';
+import '/components/meu_perfil_widget.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'inicial_model.dart';
 export 'inicial_model.dart';
@@ -42,8 +47,24 @@ class _InicialWidgetState extends State<InicialWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            print('FloatingActionButton pressed ...');
+          onPressed: () async {
+            await showModalBottomSheet(
+              isScrollControlled: true,
+              backgroundColor: const Color(0x7D000000),
+              enableDrag: false,
+              context: context,
+              builder: (context) {
+                return GestureDetector(
+                  onTap: () => _model.unfocusNode.canRequestFocus
+                      ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                      : FocusScope.of(context).unfocus(),
+                  child: Padding(
+                    padding: MediaQuery.viewInsetsOf(context),
+                    child: const AdicionarTransacaoWidget(),
+                  ),
+                );
+              },
+            ).then((value) => safeSetState(() {}));
           },
           backgroundColor: FlutterFlowTheme.of(context).primary,
           elevation: 8.0,
@@ -87,7 +108,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                               16.0, 8.0, 16.0, 8.0),
                           child: Container(
                             width: MediaQuery.sizeOf(context).width * 1.0,
-                            height: 200.0,
+                            height: 300.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
@@ -157,6 +178,160 @@ class _InicialWidgetState extends State<InicialWidget> {
                                     ),
                                   ),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 8.0, 8.0, 8.0),
+                                  child: Container(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height: 50.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 0.0, 8.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: const Color(0x80000000),
+                                            enableDrag: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return GestureDetector(
+                                                onTap: () => _model.unfocusNode
+                                                        .canRequestFocus
+                                                    ? FocusScope.of(context)
+                                                        .requestFocus(
+                                                            _model.unfocusNode)
+                                                    : FocusScope.of(context)
+                                                        .unfocus(),
+                                                child: Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child:
+                                                      const AdicionarCategoriaWidget(),
+                                                ),
+                                              );
+                                            },
+                                          ).then(
+                                              (value) => safeSetState(() {}));
+                                        },
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Icon(
+                                              Icons.style_outlined,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                              child: Text(
+                                                'Adicionar Categoria',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 8.0, 8.0, 8.0),
+                                  child: Container(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height: 50.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 0.0, 8.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: const Color(0x80000000),
+                                            enableDrag: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return GestureDetector(
+                                                onTap: () => _model.unfocusNode
+                                                        .canRequestFocus
+                                                    ? FocusScope.of(context)
+                                                        .requestFocus(
+                                                            _model.unfocusNode)
+                                                    : FocusScope.of(context)
+                                                        .unfocus(),
+                                                child: Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child:
+                                                      const AdicionarUsuarioWidget(),
+                                                ),
+                                              );
+                                            },
+                                          ).then(
+                                              (value) => safeSetState(() {}));
+                                        },
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Icon(
+                                              Icons.person_add_sharp,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                              child: Text(
+                                                'Adicionar Usuário',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -172,47 +347,76 @@ class _InicialWidgetState extends State<InicialWidget> {
                                   .secondaryBackground,
                               borderRadius: BorderRadius.circular(12.0),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 45.0,
-                                  height: 45.0,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                await showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: const Color(0x80000000),
+                                  enableDrag: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return GestureDetector(
+                                      onTap: () => _model
+                                              .unfocusNode.canRequestFocus
+                                          ? FocusScope.of(context)
+                                              .requestFocus(_model.unfocusNode)
+                                          : FocusScope.of(context).unfocus(),
+                                      child: Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: const MeuPerfilWidget(),
+                                      ),
+                                    );
+                                  },
+                                ).then((value) => safeSetState(() {}));
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: 45.0,
+                                    height: 45.0,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.asset(
+                                      'assets/images/IMG_3188.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                  child: Image.asset(
-                                    'assets/images/IMG_3188.jpg',
-                                    fit: BoxFit.cover,
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 0.0, 0.0, 0.0),
+                                    child: Text(
+                                      'Meu Perfil',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            fontSize: 14.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 0.0, 0.0, 0.0),
-                                  child: Text(
-                                    'Meu Perfil',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          fontSize: 14.0,
-                                          letterSpacing: 0.0,
-                                        ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 0.0, 0.0, 0.0),
+                                    child: Icon(
+                                      Icons.logout,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 0.0, 0.0, 0.0),
-                                  child: Icon(
-                                    Icons.logout,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24.0,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -289,11 +493,41 @@ class _InicialWidgetState extends State<InicialWidget> {
                                   context: context,
                                   desktop: false,
                                 ))
-                                  Icon(
-                                    Icons.menu_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 30.0,
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: const Color(0x80000000),
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return GestureDetector(
+                                            onTap: () => _model
+                                                    .unfocusNode.canRequestFocus
+                                                ? FocusScope.of(context)
+                                                    .requestFocus(
+                                                        _model.unfocusNode)
+                                                : FocusScope.of(context)
+                                                    .unfocus(),
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: const MeuPerfilWidget(),
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(() {}));
+                                    },
+                                    child: Icon(
+                                      Icons.menu_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 30.0,
+                                    ),
                                   ),
                               ],
                             ),
@@ -577,146 +811,164 @@ class _InicialWidgetState extends State<InicialWidget> {
                                   child: Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         8.0, 0.0, 8.0, 0.0),
-                                    child: FlutterFlowDataTable<dynamic>(
-                                      controller:
-                                          _model.paginatedDataTableController,
-                                      data: paginatedDataTableRecordList,
-                                      columnsBuilder: (onSortChanged) => [
-                                        DataColumn2(
-                                          label: DefaultTextStyle.merge(
-                                            softWrap: true,
-                                            child: Text(
-                                              'Descrição',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                    child: Builder(
+                                      builder: (context) {
+                                        final listaAleatoria = List.generate(
+                                            random_data.randomInteger(1, 10),
+                                            (index) => random_data
+                                                .randomInteger(1, 10)).toList();
+                                        return FlutterFlowDataTable<int>(
+                                          controller: _model
+                                              .paginatedDataTableController,
+                                          data: listaAleatoria,
+                                          columnsBuilder: (onSortChanged) => [
+                                            DataColumn2(
+                                              label: DefaultTextStyle.merge(
+                                                softWrap: true,
+                                                child: Text(
+                                                  'Descrição',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .titleSmall
                                                       .override(
                                                         fontFamily:
                                                             'Readex Pro',
                                                         letterSpacing: 0.0,
                                                       ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        DataColumn2(
-                                          label: DefaultTextStyle.merge(
-                                            softWrap: true,
-                                            child: Text(
-                                              'Categoria',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                            DataColumn2(
+                                              label: DefaultTextStyle.merge(
+                                                softWrap: true,
+                                                child: Text(
+                                                  'Categoria',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .titleSmall
                                                       .override(
                                                         fontFamily:
                                                             'Readex Pro',
                                                         letterSpacing: 0.0,
                                                       ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        DataColumn2(
-                                          label: DefaultTextStyle.merge(
-                                            softWrap: true,
-                                            child: Text(
-                                              'Tipo',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                            DataColumn2(
+                                              label: DefaultTextStyle.merge(
+                                                softWrap: true,
+                                                child: Text(
+                                                  'Tipo',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .titleSmall
                                                       .override(
                                                         fontFamily:
                                                             'Readex Pro',
                                                         letterSpacing: 0.0,
                                                       ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        DataColumn2(
-                                          label: DefaultTextStyle.merge(
-                                            softWrap: true,
-                                            child: Text(
-                                              'Valor',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                            DataColumn2(
+                                              label: DefaultTextStyle.merge(
+                                                softWrap: true,
+                                                child: Text(
+                                                  'Valor',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .titleSmall
                                                       .override(
                                                         fontFamily:
                                                             'Readex Pro',
                                                         letterSpacing: 0.0,
                                                       ),
+                                                ),
+                                              ),
                                             ),
+                                          ],
+                                          dataRowBuilder: (listaAleatoriaItem,
+                                                  listaAleatoriaIndex,
+                                                  selected,
+                                                  onSelectChanged) =>
+                                              DataRow(
+                                            color: MaterialStateProperty.all(
+                                              listaAleatoriaIndex % 2 == 0
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .secondaryBackground
+                                                  : FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                            ),
+                                            cells: [
+                                              Text(
+                                                'Desc',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                              Text(
+                                                'Categoria',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                              Text(
+                                                'Receita',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                              Text(
+                                                'Edit Column 4',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ].map((c) => DataCell(c)).toList(),
                                           ),
-                                        ),
-                                      ],
-                                      dataRowBuilder: (Item,
-                                              paginatedDataTableIndex,
-                                              selected,
-                                              onSelectChanged) =>
-                                          DataRow(
-                                        color: MaterialStateProperty.all(
-                                          paginatedDataTableIndex % 2 == 0
-                                              ? FlutterFlowTheme.of(context)
-                                                  .secondaryBackground
-                                              : FlutterFlowTheme.of(context)
-                                                  .primaryBackground,
-                                        ),
-                                        cells: [
-                                          Text(
-                                            'Desc',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                          Text(
-                                            'Categoria',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                          Text(
-                                            'Receita',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                          Text(
-                                            'Edit Column 4',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                        ].map((c) => DataCell(c)).toList(),
-                                      ),
-                                      paginated: true,
-                                      selectable: false,
-                                      hidePaginator: false,
-                                      showFirstLastButtons: false,
-                                      minWidth: 500.0,
-                                      headingRowHeight: 56.0,
-                                      dataRowHeight: 48.0,
-                                      columnSpacing: 10.0,
-                                      headingRowColor:
-                                          FlutterFlowTheme.of(context).tertiary,
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      addHorizontalDivider: true,
-                                      addTopAndBottomDivider: false,
-                                      hideDefaultHorizontalDivider: true,
-                                      horizontalDividerColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      horizontalDividerThickness: 1.0,
-                                      addVerticalDivider: false,
+                                          paginated: true,
+                                          selectable: false,
+                                          hidePaginator: false,
+                                          showFirstLastButtons: false,
+                                          minWidth: 500.0,
+                                          headingRowHeight: 56.0,
+                                          dataRowHeight: 48.0,
+                                          columnSpacing: 10.0,
+                                          headingRowColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .tertiary,
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          addHorizontalDivider: true,
+                                          addTopAndBottomDivider: false,
+                                          hideDefaultHorizontalDivider: true,
+                                          horizontalDividerColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          horizontalDividerThickness: 1.0,
+                                          addVerticalDivider: false,
+                                        );
+                                      },
                                     ),
                                   ),
                                 ),

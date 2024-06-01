@@ -41,11 +41,14 @@ class _MeuPerfilWidgetState extends State<MeuPerfilWidget> {
     return Align(
       alignment: const AlignmentDirectional(0.0, 0.0),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
         child: Container(
           width: 400.0,
           height: 550.0,
-          decoration: const BoxDecoration(),
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            borderRadius: BorderRadius.circular(12.0),
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
