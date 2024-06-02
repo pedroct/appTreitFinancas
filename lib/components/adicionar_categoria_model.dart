@@ -13,12 +13,24 @@ class AdicionarCategoriaModel
   TextEditingController? addDescricaoCatTextController;
   String? Function(BuildContext, String?)?
       addDescricaoCatTextControllerValidator;
+  String? _addDescricaoCatTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Campo obrigatório';
+    }
+
+    return null;
+  }
+
   // State field(s) for AddTipoCat widget.
   String? addTipoCatValue;
   FormFieldController<String>? addTipoCatValueController;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    addDescricaoCatTextControllerValidator =
+        _addDescricaoCatTextControllerValidator;
+  }
 
   @override
   void dispose() {

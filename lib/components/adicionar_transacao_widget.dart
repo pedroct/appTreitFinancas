@@ -1,8 +1,11 @@
+import '/auth/supabase_auth/auth_util.dart';
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'adicionar_transacao_model.dart';
 export 'adicionar_transacao_model.dart';
@@ -35,6 +38,9 @@ class _AdicionarTransacaoWidgetState extends State<AdicionarTransacaoWidget> {
     _model.addValorTextController ??= TextEditingController();
     _model.addValorFocusNode ??= FocusNode();
 
+    _model.addDataTransacaoTextController ??= TextEditingController();
+    _model.addDataTransacaoFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -53,7 +59,7 @@ class _AdicionarTransacaoWidgetState extends State<AdicionarTransacaoWidget> {
         padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
         child: Container(
           width: 400.0,
-          height: 550.0,
+          height: 650.0,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
             borderRadius: BorderRadius.circular(12.0),
@@ -118,7 +124,7 @@ class _AdicionarTransacaoWidgetState extends State<AdicionarTransacaoWidget> {
                     ),
                     child: Form(
                       key: _model.formKey,
-                      autovalidateMode: AutovalidateMode.disabled,
+                      autovalidateMode: AutovalidateMode.always,
                       child: Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
@@ -302,41 +308,79 @@ class _AdicionarTransacaoWidgetState extends State<AdicionarTransacaoWidget> {
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 0.0, 0.0),
-                              child: FlutterFlowDropDown<String>(
-                                controller:
-                                    _model.addCategoriaValueController ??=
-                                        FormFieldController<String>(null),
-                                options: const ['Option 1'],
-                                onChanged: (val) => setState(
-                                    () => _model.addCategoriaValue = val),
-                                width: 300.0,
-                                height: 56.0,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      letterSpacing: 0.0,
-                                    ),
-                                hintText: 'Selecione uma Categoria',
-                                icon: Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 24.0,
+                              child: FutureBuilder<List<VwCategoriasRow>>(
+                                future: VwCategoriasTable().queryRows(
+                                  queryFn: (q) =>
+                                      q.order('descricao', ascending: true),
                                 ),
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                elevation: 2.0,
-                                borderColor:
-                                    FlutterFlowTheme.of(context).alternate,
-                                borderWidth: 2.0,
-                                borderRadius: 8.0,
-                                margin: const EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 4.0, 16.0, 4.0),
-                                hidesUnderline: true,
-                                isOverButton: true,
-                                isSearchable: false,
-                                isMultiSelect: false,
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<VwCategoriasRow>
+                                      addCategoriaVwCategoriasRowList =
+                                      snapshot.data!;
+                                  return FlutterFlowDropDown<int>(
+                                    controller:
+                                        _model.addCategoriaValueController ??=
+                                            FormFieldController<int>(
+                                      _model.addCategoriaValue ??= 1,
+                                    ),
+                                    options: List<int>.from(
+                                        addCategoriaVwCategoriasRowList
+                                            .map((e) => e.id)
+                                            .withoutNulls
+                                            .toList()),
+                                    optionLabels:
+                                        addCategoriaVwCategoriasRowList
+                                            .map((e) => e.descricao)
+                                            .withoutNulls
+                                            .toList(),
+                                    onChanged: (val) => setState(
+                                        () => _model.addCategoriaValue = val),
+                                    width: 300.0,
+                                    height: 56.0,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Readex Pro',
+                                          letterSpacing: 0.0,
+                                        ),
+                                    hintText: 'Selecione uma Categoria',
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
+                                    ),
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    elevation: 2.0,
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    borderWidth: 2.0,
+                                    borderRadius: 8.0,
+                                    margin: const EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 4.0, 16.0, 4.0),
+                                    hidesUnderline: true,
+                                    isOverButton: true,
+                                    isSearchable: false,
+                                    isMultiSelect: false,
+                                  );
+                                },
                               ),
                             ),
                             Padding(
@@ -391,6 +435,163 @@ class _AdicionarTransacaoWidgetState extends State<AdicionarTransacaoWidget> {
                                 isMultiSelect: false,
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 16.0, 0.0, 0.0),
+                              child: Text(
+                                'Quando',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 8.0, 0.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller:
+                                          _model.addDataTransacaoTextController,
+                                      focusNode:
+                                          _model.addDataTransacaoFocusNode,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.addDataTransacaoTextController',
+                                        const Duration(milliseconds: 2000),
+                                        () => setState(() {}),
+                                      ),
+                                      onFieldSubmitted: (_) async {
+                                        setState(() {
+                                          _model.addDataTransacaoTextController
+                                                  ?.text =
+                                              _model.datePicked!.toString();
+                                        });
+                                      },
+                                      autofocus: true,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        isDense: false,
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              letterSpacing: 0.0,
+                                            ),
+                                        alignLabelWithHint: false,
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              letterSpacing: 0.0,
+                                            ),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        errorBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedErrorBorder:
+                                            UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        suffixIcon: _model
+                                                .addDataTransacaoTextController!
+                                                .text
+                                                .isNotEmpty
+                                            ? InkWell(
+                                                onTap: () async {
+                                                  _model
+                                                      .addDataTransacaoTextController
+                                                      ?.clear();
+                                                  setState(() {});
+                                                },
+                                                child: const Icon(
+                                                  Icons.clear,
+                                                  size: 24.0,
+                                                ),
+                                              )
+                                            : null,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            letterSpacing: 0.0,
+                                          ),
+                                      validator: _model
+                                          .addDataTransacaoTextControllerValidator
+                                          .asValidator(context),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      final datePickedDate =
+                                          await showDatePicker(
+                                        context: context,
+                                        initialDate: getCurrentTimestamp,
+                                        firstDate: DateTime(1900),
+                                        lastDate: getCurrentTimestamp,
+                                      );
+
+                                      if (datePickedDate != null) {
+                                        safeSetState(() {
+                                          _model.datePicked = DateTime(
+                                            datePickedDate.year,
+                                            datePickedDate.month,
+                                            datePickedDate.day,
+                                          );
+                                        });
+                                      }
+                                    },
+                                    child: Icon(
+                                      Icons.calendar_month,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -414,8 +615,37 @@ class _AdicionarTransacaoWidgetState extends State<AdicionarTransacaoWidget> {
                       children: [
                         Expanded(
                           child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
+                            onPressed: () async {
+                              if (_model.formKey.currentState == null ||
+                                  !_model.formKey.currentState!.validate()) {
+                                return;
+                              }
+                              await TransacoesTable().insert({
+                                'descricao':
+                                    _model.addDescricaoTextController.text,
+                                'tipo': _model.addTipoValue,
+                                'valor': double.tryParse(
+                                    _model.addValorTextController.text),
+                                'usuario_id': currentUserUid,
+                                'categoria_id': _model.addCategoriaValue,
+                              });
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: const Text('Sucesso!'),
+                                    content: const Text('Transação adicionada.'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: const Text('Ok'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                              Navigator.pop(context);
                             },
                             text: 'Adicionar Transação',
                             options: FFButtonOptions(

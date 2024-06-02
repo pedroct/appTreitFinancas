@@ -1,3 +1,4 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -258,8 +259,13 @@ class _MeuPerfilWidgetState extends State<MeuPerfilWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
+                          onPressed: () async {
+                            GoRouter.of(context).prepareAuthEvent();
+                            await authManager.signOut();
+                            GoRouter.of(context).clearRedirectLocation();
+
+                            context.goNamedAuth(
+                                'Autenticacao', context.mounted);
                           },
                           text: 'Sair',
                           options: FFButtonOptions(

@@ -17,11 +17,17 @@ class AdicionarTransacaoModel
   TextEditingController? addValorTextController;
   String? Function(BuildContext, String?)? addValorTextControllerValidator;
   // State field(s) for AddCategoria widget.
-  String? addCategoriaValue;
-  FormFieldController<String>? addCategoriaValueController;
+  int? addCategoriaValue;
+  FormFieldController<int>? addCategoriaValueController;
   // State field(s) for AddTipo widget.
   String? addTipoValue;
   FormFieldController<String>? addTipoValueController;
+  // State field(s) for AddDataTransacao widget.
+  FocusNode? addDataTransacaoFocusNode;
+  TextEditingController? addDataTransacaoTextController;
+  String? Function(BuildContext, String?)?
+      addDataTransacaoTextControllerValidator;
+  DateTime? datePicked;
 
   @override
   void initState(BuildContext context) {}
@@ -33,5 +39,8 @@ class AdicionarTransacaoModel
 
     addValorFocusNode?.dispose();
     addValorTextController?.dispose();
+
+    addDataTransacaoFocusNode?.dispose();
+    addDataTransacaoTextController?.dispose();
   }
 }
