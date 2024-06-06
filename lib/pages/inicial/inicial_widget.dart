@@ -1,14 +1,14 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/adicionar_categoria_widget.dart';
-import '/components/adicionar_conta_widget.dart';
 import '/components/adicionar_transacao_widget.dart';
-import '/components/adicionar_usuario_widget.dart';
+import '/components/menu_side_bar_fechado_widget.dart';
+import '/components/menu_side_bar_widget.dart';
 import '/components/meu_perfil_widget.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'inicial_model.dart';
 export 'inicial_model.dart';
 
@@ -41,18 +41,19 @@ class _InicialWidgetState extends State<InicialWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             await showModalBottomSheet(
               isScrollControlled: true,
-              backgroundColor: const Color(0x7D000000),
+              backgroundColor: const Color(0x80000000),
               enableDrag: false,
               context: context,
               builder: (context) {
@@ -76,620 +77,54 @@ class _InicialWidgetState extends State<InicialWidget> {
             size: 24.0,
           ),
         ),
-        body: FutureBuilder<List<UsuariosRow>>(
-          future: UsuariosTable().querySingleRow(
-            queryFn: (q) => q.eq(
-              'user_id',
-              currentUserUid,
-            ),
-          ),
-          builder: (context, snapshot) {
-            // Customize what your widget looks like when it's loading.
-            if (!snapshot.hasData) {
-              return Center(
-                child: SizedBox(
-                  width: 50.0,
-                  height: 50.0,
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      FlutterFlowTheme.of(context).primary,
+        body: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                if ((FFAppState().menuAberto == false) &&
+                    responsiveVisibility(
+                      context: context,
+                      tablet: false,
+                    ))
+                  Expanded(
+                    child: wrapWithModel(
+                      model: _model.menuSideBarFechadoModel,
+                      updateCallback: () => setState(() {}),
+                      child: const MenuSideBarFechadoWidget(),
                     ),
                   ),
-                ),
-              );
-            }
-            List<UsuariosRow> telaCompletaUsuariosRowList = snapshot.data!;
-            final telaCompletaUsuariosRow =
-                telaCompletaUsuariosRowList.isNotEmpty
-                    ? telaCompletaUsuariosRowList.first
-                    : null;
-            return Container(
-              width: MediaQuery.sizeOf(context).width * 1.0,
-              height: MediaQuery.sizeOf(context).height * 1.0,
-              decoration: const BoxDecoration(
-                color: Color(0x00FFFFFF),
-              ),
-              child: Row(
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                if (valueOrDefault<bool>(
+                      FFAppState().menuAberto == true,
+                      true,
+                    ) &&
+                    responsiveVisibility(
+                      context: context,
+                      phone: false,
+                    ))
+                  Expanded(
+                    child: wrapWithModel(
+                      model: _model.menuSideBarModel,
+                      updateCallback: () => setState(() {}),
+                      child: const MenuSideBarWidget(),
+                    ),
+                  ),
+              ],
+            ),
+            Expanded(
+              child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  if (responsiveVisibility(
-                    context: context,
-                    phone: false,
-                    tablet: false,
-                    tabletLandscape: false,
-                  ))
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 16.0),
-                      child: Container(
-                        width: 250.0,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 8.0, 16.0, 8.0),
-                              child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                height: 450.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.asset(
-                                        Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? 'assets/images/logo-treit-08.png'
-                                            : 'assets/images/logo-treit-07.png',
-                                        width: 300.0,
-                                        height: 80.0,
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 8.0, 8.0, 8.0),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
-                                        height: 50.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  8.0, 0.0, 8.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Icon(
-                                                Icons.home_sharp,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                size: 24.0,
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        8.0, 0.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'Painel de Finanças',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 8.0, 8.0, 8.0),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
-                                        height: 50.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  8.0, 0.0, 8.0, 0.0),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              await showModalBottomSheet(
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    const Color(0x80000000),
-                                                enableDrag: false,
-                                                context: context,
-                                                builder: (context) {
-                                                  return GestureDetector(
-                                                    onTap: () => _model
-                                                            .unfocusNode
-                                                            .canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode)
-                                                        : FocusScope.of(context)
-                                                            .unfocus(),
-                                                    child: Padding(
-                                                      padding: MediaQuery
-                                                          .viewInsetsOf(
-                                                              context),
-                                                      child:
-                                                          const AdicionarCategoriaWidget(),
-                                                    ),
-                                                  );
-                                                },
-                                              ).then((value) =>
-                                                  safeSetState(() {}));
-                                            },
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Icon(
-                                                  Icons.style_outlined,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  size: 24.0,
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          8.0, 0.0, 0.0, 0.0),
-                                                  child: Text(
-                                                    'Adicionar Categoria',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 8.0, 8.0, 8.0),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
-                                        height: 50.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  8.0, 0.0, 8.0, 0.0),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              await showModalBottomSheet(
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    const Color(0x80000000),
-                                                enableDrag: false,
-                                                context: context,
-                                                builder: (context) {
-                                                  return GestureDetector(
-                                                    onTap: () => _model
-                                                            .unfocusNode
-                                                            .canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode)
-                                                        : FocusScope.of(context)
-                                                            .unfocus(),
-                                                    child: Padding(
-                                                      padding: MediaQuery
-                                                          .viewInsetsOf(
-                                                              context),
-                                                      child:
-                                                          const AdicionarUsuarioWidget(),
-                                                    ),
-                                                  );
-                                                },
-                                              ).then((value) =>
-                                                  safeSetState(() {}));
-                                            },
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Icon(
-                                                  Icons.person_add_sharp,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  size: 24.0,
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          8.0, 0.0, 0.0, 0.0),
-                                                  child: Text(
-                                                    'Adicionar Usuário',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 8.0, 8.0, 8.0),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
-                                        height: 50.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  8.0, 0.0, 8.0, 0.0),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              await showModalBottomSheet(
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    const Color(0x80000000),
-                                                enableDrag: false,
-                                                context: context,
-                                                builder: (context) {
-                                                  return GestureDetector(
-                                                    onTap: () => _model
-                                                            .unfocusNode
-                                                            .canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode)
-                                                        : FocusScope.of(context)
-                                                            .unfocus(),
-                                                    child: Padding(
-                                                      padding: MediaQuery
-                                                          .viewInsetsOf(
-                                                              context),
-                                                      child:
-                                                          const AdicionarContaWidget(),
-                                                    ),
-                                                  );
-                                                },
-                                              ).then((value) =>
-                                                  safeSetState(() {}));
-                                            },
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Icon(
-                                                  Icons.switch_account,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  size: 24.0,
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          8.0, 0.0, 0.0, 0.0),
-                                                  child: Text(
-                                                    'Adicionar Conta',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 8.0, 8.0, 8.0),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
-                                        height: 50.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  8.0, 0.0, 8.0, 0.0),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              await showModalBottomSheet(
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    const Color(0x80000000),
-                                                enableDrag: false,
-                                                context: context,
-                                                builder: (context) {
-                                                  return GestureDetector(
-                                                    onTap: () => _model
-                                                            .unfocusNode
-                                                            .canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode)
-                                                        : FocusScope.of(context)
-                                                            .unfocus(),
-                                                    child: Padding(
-                                                      padding: MediaQuery
-                                                          .viewInsetsOf(
-                                                              context),
-                                                      child:
-                                                          const AdicionarTransacaoWidget(),
-                                                    ),
-                                                  );
-                                                },
-                                              ).then((value) =>
-                                                  safeSetState(() {}));
-                                            },
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Icon(
-                                                  Icons.attach_money_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  size: 24.0,
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          8.0, 0.0, 0.0, 0.0),
-                                                  child: Text(
-                                                    'Adicionar Transação',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 8.0, 8.0, 8.0),
-                              child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                height: 80.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: 45.0,
-                                      height: 45.0,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Image.asset(
-                                        'assets/images/IMG_3188.jpg',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 0.0, 0.0),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: const Color(0x80000000),
-                                            enableDrag: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return GestureDetector(
-                                                onTap: () => _model.unfocusNode
-                                                        .canRequestFocus
-                                                    ? FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _model.unfocusNode)
-                                                    : FocusScope.of(context)
-                                                        .unfocus(),
-                                                child: Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: const MeuPerfilWidget(),
-                                                ),
-                                              );
-                                            },
-                                          ).then(
-                                              (value) => safeSetState(() {}));
-                                        },
-                                        child: Text(
-                                          'Meu Perfil',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                fontSize: 14.0,
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 0.0, 0.0),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          var confirmDialogResponse =
-                                              await showDialog<bool>(
-                                                    context: context,
-                                                    builder:
-                                                        (alertDialogContext) {
-                                                      return AlertDialog(
-                                                        title: const Text(
-                                                            'Sair da Aplicação'),
-                                                        content: const Text(
-                                                            'Você deseja sair da aplicação?'),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext,
-                                                                    false),
-                                                            child: const Text(
-                                                                'Cancelar'),
-                                                          ),
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext,
-                                                                    true),
-                                                            child: const Text(
-                                                                'Confirmar'),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  ) ??
-                                                  false;
-                                          GoRouter.of(context)
-                                              .prepareAuthEvent();
-                                          await authManager.signOut();
-                                          GoRouter.of(context)
-                                              .clearRedirectLocation();
-
-                                          context.goNamedAuth(
-                                              'Autenticacao', context.mounted);
-                                        },
-                                        child: Icon(
-                                          Icons.logout,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 24.0,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          16.0, 16.0, 16.0, 16.0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 8.0, 8.0),
                       child: FutureBuilder<List<VwTransacoesRow>>(
                         future: VwTransacoesTable().queryRows(
                           queryFn: (q) => q.eq(
@@ -715,10 +150,16 @@ class _InicialWidgetState extends State<InicialWidget> {
                           List<VwTransacoesRow> conteudoVwTransacoesRowList =
                               snapshot.data!;
                           return Container(
-                            width: 100.0,
-                            height: MediaQuery.sizeOf(context).height * 1.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12.0),
+                            width: double.infinity,
+                            height: 100.0,
+                            decoration: const BoxDecoration(
+                              color: Color(0xFFD6DAE0),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(0.0),
+                                bottomRight: Radius.circular(10.0),
+                                topLeft: Radius.circular(0.0),
+                                topRight: Radius.circular(10.0),
+                              ),
                             ),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -726,114 +167,168 @@ class _InicialWidgetState extends State<InicialWidget> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       8.0, 8.0, 8.0, 8.0),
-                                  child: Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
-                                    height: 60.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12.0),
+                                  child: FutureBuilder<List<UsuariosRow>>(
+                                    future: UsuariosTable().querySingleRow(
+                                      queryFn: (q) => q.eq(
+                                        'user_id',
+                                        currentUserUid,
+                                      ),
                                     ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            width: 100.0,
-                                            height: 100.0,
-                                            decoration: const BoxDecoration(),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Seja bem vindo!',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                                ),
-                                                Text(
-                                                  valueOrDefault<String>(
-                                                    telaCompletaUsuariosRow
-                                                        ?.nome,
-                                                    'null',
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      List<UsuariosRow>
+                                          cabecalhoUsuariosRowList =
+                                          snapshot.data!;
+                                      final cabecalhoUsuariosRow =
+                                          cabecalhoUsuariosRowList.isNotEmpty
+                                              ? cabecalhoUsuariosRowList.first
+                                              : null;
+                                      return Container(
+                                        width: double.infinity,
+                                        height: 80.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 0.0, 16.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Expanded(
+                                                child: Container(
+                                                  width: 100.0,
+                                                  height: 100.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
                                                   ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color:
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        'Seja bem vindo(a),',
+                                                        style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .secondaryText,
-                                                        fontSize: 18.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                       ),
+                                                      Text(
+                                                        valueOrDefault<String>(
+                                                          cabecalhoUsuariosRow
+                                                              ?.nome,
+                                                          'null',
+                                                        ),
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Readex Pro',
+                                                              fontSize: 20.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                            ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                              if (responsiveVisibility(
+                                                context: context,
+                                                desktop: false,
+                                              ))
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      enableDrag: false,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return GestureDetector(
+                                                          onTap: () => _model
+                                                                  .unfocusNode
+                                                                  .canRequestFocus
+                                                              ? FocusScope.of(
+                                                                      context)
+                                                                  .requestFocus(
+                                                                      _model
+                                                                          .unfocusNode)
+                                                              : FocusScope.of(
+                                                                      context)
+                                                                  .unfocus(),
+                                                          child: Padding(
+                                                            padding: MediaQuery
+                                                                .viewInsetsOf(
+                                                                    context),
+                                                            child:
+                                                                const MeuPerfilWidget(),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ).then((value) =>
+                                                        safeSetState(() {}));
+                                                  },
+                                                  child: Icon(
+                                                    Icons.menu_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    size: 30.0,
+                                                  ),
+                                                ),
+                                            ],
                                           ),
                                         ),
-                                        if (responsiveVisibility(
-                                          context: context,
-                                          desktop: false,
-                                        ))
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              await showModalBottomSheet(
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    const Color(0x80000000),
-                                                enableDrag: false,
-                                                context: context,
-                                                builder: (context) {
-                                                  return GestureDetector(
-                                                    onTap: () => _model
-                                                            .unfocusNode
-                                                            .canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode)
-                                                        : FocusScope.of(context)
-                                                            .unfocus(),
-                                                    child: Padding(
-                                                      padding: MediaQuery
-                                                          .viewInsetsOf(
-                                                              context),
-                                                      child: const MeuPerfilWidget(),
-                                                    ),
-                                                  );
-                                                },
-                                              ).then((value) =>
-                                                  safeSetState(() {}));
-                                            },
-                                            child: Icon(
-                                              Icons.menu_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 30.0,
-                                            ),
-                                          ),
-                                      ],
-                                    ),
+                                      );
+                                    },
                                   ),
                                 ),
                                 Padding(
@@ -871,12 +366,9 @@ class _InicialWidgetState extends State<InicialWidget> {
                                               ? totaisVwSaldoFinalRowList.first
                                               : null;
                                       return Container(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
+                                        width: double.infinity,
                                         height: 130.0,
                                         decoration: BoxDecoration(
-                                          color: Colors.transparent,
                                           borderRadius:
                                               BorderRadius.circular(12.0),
                                         ),
@@ -891,10 +383,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                         0.0, 0.0, 16.0, 0.0),
                                                 child: Container(
                                                   width: 150.0,
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          1.0,
+                                                  height: double.infinity,
                                                   decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
                                                             context)
@@ -946,9 +435,6 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                                     .override(
                                                                       fontFamily:
                                                                           'Readex Pro',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
                                                                       letterSpacing:
                                                                           0.0,
                                                                     ),
@@ -970,7 +456,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                                       .commaDecimal,
                                                               currency: 'R\$ ',
                                                             ),
-                                                            'R\$ 0,00',
+                                                            '0',
                                                           ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -1000,10 +486,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                         0.0, 0.0, 16.0, 0.0),
                                                 child: Container(
                                                   width: 150.0,
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          1.0,
+                                                  height: double.infinity,
                                                   decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
                                                             context)
@@ -1055,9 +538,6 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                                     .override(
                                                                       fontFamily:
                                                                           'Readex Pro',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
                                                                       letterSpacing:
                                                                           0.0,
                                                                     ),
@@ -1079,7 +559,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                                       .commaDecimal,
                                                               currency: 'R\$ ',
                                                             ),
-                                                            'R\$ 0,00',
+                                                            '0',
                                                           ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -1109,10 +589,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                         0.0, 0.0, 16.0, 0.0),
                                                 child: Container(
                                                   width: 150.0,
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          1.0,
+                                                  height: double.infinity,
                                                   decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
                                                             context)
@@ -1164,9 +641,6 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                                     .override(
                                                                       fontFamily:
                                                                           'Readex Pro',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
                                                                       letterSpacing:
                                                                           0.0,
                                                                     ),
@@ -1188,7 +662,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                                       .commaDecimal,
                                                               currency: 'R\$ ',
                                                             ),
-                                                            'R\$ 0,00',
+                                                            '0',
                                                           ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -1223,9 +697,8 @@ class _InicialWidgetState extends State<InicialWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       8.0, 8.0, 8.0, 8.0),
                                   child: Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
-                                    height: 550.0,
+                                    width: double.infinity,
+                                    height: 530.0,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
@@ -1248,6 +721,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                   fontFamily: 'Readex Pro',
                                                   fontSize: 18.0,
                                                   letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
                                                 ),
                                           ),
                                         ),
@@ -1258,14 +732,14 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                     8.0, 0.0, 8.0, 0.0),
                                             child: Builder(
                                               builder: (context) {
-                                                final listaTransacoes =
+                                                final listaTransacao =
                                                     conteudoVwTransacoesRowList
                                                         .toList();
                                                 return FlutterFlowDataTable<
                                                     VwTransacoesRow>(
                                                   controller: _model
                                                       .paginatedDataTableController,
-                                                  data: listaTransacoes,
+                                                  data: listaTransacao,
                                                   columnsBuilder:
                                                       (onSortChanged) => [
                                                     DataColumn2(
@@ -1273,13 +747,16 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                           .merge(
                                                         softWrap: true,
                                                         child: Text(
-                                                          'Descrição',
+                                                          'Descrição ',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .titleSmall
+                                                              .labelLarge
                                                               .override(
                                                                 fontFamily:
                                                                     'Readex Pro',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
@@ -1294,10 +771,13 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                           'Categoria',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .titleSmall
+                                                              .labelLarge
                                                               .override(
                                                                 fontFamily:
                                                                     'Readex Pro',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
@@ -1312,10 +792,13 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                           'Tipo',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .titleSmall
+                                                              .labelLarge
                                                               .override(
                                                                 fontFamily:
                                                                     'Readex Pro',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
@@ -1330,10 +813,13 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                           'Valor',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .titleSmall
+                                                              .labelLarge
                                                               .override(
                                                                 fontFamily:
                                                                     'Readex Pro',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
@@ -1342,15 +828,14 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                     ),
                                                   ],
                                                   dataRowBuilder:
-                                                      (listaTransacoesItem,
-                                                              listaTransacoesIndex,
+                                                      (listaTransacaoItem,
+                                                              listaTransacaoIndex,
                                                               selected,
                                                               onSelectChanged) =>
                                                           DataRow(
                                                     color: MaterialStateProperty
                                                         .all(
-                                                      listaTransacoesIndex %
-                                                                  2 ==
+                                                      listaTransacaoIndex % 2 ==
                                                               0
                                                           ? FlutterFlowTheme.of(
                                                                   context)
@@ -1362,7 +847,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                     cells: [
                                                       Text(
                                                         valueOrDefault<String>(
-                                                          listaTransacoesItem
+                                                          listaTransacaoItem
                                                               .descricao,
                                                           'null',
                                                         ),
@@ -1379,7 +864,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                       ),
                                                       Text(
                                                         valueOrDefault<String>(
-                                                          listaTransacoesItem
+                                                          listaTransacaoItem
                                                               .categoria,
                                                           'null',
                                                         ),
@@ -1396,7 +881,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                       ),
                                                       Text(
                                                         valueOrDefault<String>(
-                                                          listaTransacoesItem
+                                                          listaTransacaoItem
                                                               .tipo,
                                                           'null',
                                                         ),
@@ -1414,7 +899,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                       Text(
                                                         valueOrDefault<String>(
                                                           formatNumber(
-                                                            listaTransacoesItem
+                                                            listaTransacaoItem
                                                                 .valor,
                                                             formatType:
                                                                 FormatType
@@ -1424,7 +909,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                                     .commaDecimal,
                                                             currency: 'R\$ ',
                                                           ),
-                                                          'R\$ 0,00',
+                                                          'null',
                                                         ),
                                                         style:
                                                             FlutterFlowTheme.of(
@@ -1448,7 +933,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                   minWidth: 500.0,
                                                   headingRowHeight: 56.0,
                                                   dataRowHeight: 48.0,
-                                                  columnSpacing: 10.0,
+                                                  columnSpacing: 20.0,
                                                   headingRowColor:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -1481,11 +966,8 @@ class _InicialWidgetState extends State<InicialWidget> {
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         8.0, 8.0, 8.0, 8.0),
                                     child: Container(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          1.0,
-                                      height:
-                                          MediaQuery.sizeOf(context).height *
-                                              1.0,
+                                      width: double.infinity,
+                                      height: 100.0,
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(12.0),
@@ -1502,8 +984,8 @@ class _InicialWidgetState extends State<InicialWidget> {
                   ),
                 ],
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );

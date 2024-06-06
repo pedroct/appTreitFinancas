@@ -84,6 +84,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Inicial',
           path: '/inicial',
+          requireAuth: true,
           builder: (context, params) => const InicialWidget(),
         ),
         FFRoute(

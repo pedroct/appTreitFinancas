@@ -1,3 +1,4 @@
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -8,7 +9,12 @@ import 'editar_transacao_model.dart';
 export 'editar_transacao_model.dart';
 
 class EditarTransacaoWidget extends StatefulWidget {
-  const EditarTransacaoWidget({super.key});
+  const EditarTransacaoWidget({
+    super.key,
+    required this.transacaoRow,
+  });
+
+  final TransacoesRow? transacaoRow;
 
   @override
   State<EditarTransacaoWidget> createState() => _EditarTransacaoWidgetState();
@@ -54,6 +60,7 @@ class _EditarTransacaoWidgetState extends State<EditarTransacaoWidget> {
           width: 400.0,
           height: 550.0,
           decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Column(
@@ -105,7 +112,7 @@ class _EditarTransacaoWidgetState extends State<EditarTransacaoWidget> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 4.0),
                   child: Container(
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     height: 70.0,
@@ -396,7 +403,7 @@ class _EditarTransacaoWidgetState extends State<EditarTransacaoWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 8.0),
                 child: Container(
                   width: MediaQuery.sizeOf(context).width * 1.0,
                   height: 70.0,
